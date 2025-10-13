@@ -1,4 +1,4 @@
 library(testthat)
-library(EmptyPackage)
+library(OmopCheckout)
 
-test_check("EmptyPackage")
+test_check("OmopCheckout")
