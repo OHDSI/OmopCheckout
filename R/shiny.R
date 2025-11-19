@@ -1,5 +1,6 @@
 
 checkoutShiny <- function() {
+  rlang::check_required("bslib")
 
   # create ui
   ui <- bslib::page_navbar(

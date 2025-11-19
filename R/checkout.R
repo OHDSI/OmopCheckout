@@ -7,7 +7,6 @@
 #' @return Whether the result object passes the checks or not.
 #' @export
 #'
-#' @examples
 checkout <- function(result,
                      file = NULL) {
   # initial check
@@ -26,7 +25,7 @@ checkout <- function(result,
 }
 
 checkoutSuppress <- function(result) {
-  suppressWarnings(capture.output())
+  result
 }
 checkoutSummary <- function(result) {
   report <- c("# `<summarised_result>`", "")
