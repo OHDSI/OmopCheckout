@@ -1,0 +1,22 @@
+# OmopCheckout
+
+The goal of **OmopCheckout** is to … *clearly state the main goal of the
+package*
+
+## Installation
+
+You can install the development version of OmopCheckout from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pkg_install("OHDSI/OmopCheckout")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(OmopCheckout)
+```
