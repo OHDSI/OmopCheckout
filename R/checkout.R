@@ -1,4 +1,3 @@
-
 #' An
 #'
 #' @param result A `summarised_result` object.
@@ -20,8 +19,6 @@ checkout <- function(result,
 
   # suppress summary
   sup <- checkoutSuppress(result = result)
-
-
 }
 
 summarySuppress <- function(result) {
@@ -59,7 +56,6 @@ summarySuppress <- function(result) {
 
 
 summaryPackages <- function(result) {
-
   if (nrow(result) == 0) {
     return(
       paste0(
@@ -82,14 +78,13 @@ summaryPackages <- function(result) {
   paste0(
     "package name = ", x$package_name,
     "; version = ", x$package_version,
-    "; result id = ", sapply(x2$result_id, function(v) paste(v, collapse = ", ")),
+    "; result id = ", sapply(x$result_id, function(v) paste(v, collapse = ", ")),
     "; number records = ", x$number_rows
   )
 }
 
 
 summaryResult <- function(result) {
-
   if (nrow(result) == 0) {
     return(character(0))
   }
@@ -97,7 +92,8 @@ summaryResult <- function(result) {
   x <- result |>
     dplyr::group_by(
       .data$estimate_name,
-      .data$strata_name ) |>
+      .data$strata_name
+    ) |>
     dplyr::summarise(
       result_id = list(sort(unique(result_id))),
       .groups = "drop"
@@ -107,7 +103,8 @@ summaryResult <- function(result) {
     "estimate name = ", x$estimate_name,
     "; strata = ", x$strata_name,
     "; result id = ", sapply(x$result_id, function(v) paste(v, collapse = ", ")),
-    collapse = "\n")
+    collapse = "\n"
+  )
 }
 
 
@@ -135,20 +132,20 @@ checkoutSummary <- function(result) {
 
   # iterate over each result id and append summaries
 
-    # suppression summary
-    suppress_msg <- summarySuppress(result)
-    report <- c(report, "### suppression", paste(as.character(suppress_msg), collapse = "\n"), "")
+  # suppression summary
+  suppress_msg <- summarySuppress(result)
+  report <- c(report, "### Suppression", paste(as.character(suppress_msg), collapse = "\n"), "")
 
-    # packages summary
-    packages_msg <- summaryPackages(result)
-    report <- c(report, "### packages", paste(as.character(packages_msg), collapse = "\n"), "")
+  # packages summary
+  packages_msg <- summaryPackages(result)
+  report <- c(report, "### Packages", paste(as.character(packages_msg), collapse = "\n"), "")
 
-    # result rows summary
-    result_msg <- summaryResult(result)
-    report <- c(report, "### result content", paste(as.character(result_msg), collapse = "\n"), "")
+  # result rows summary
+  result_msg <- summaryResult(result)
+  report <- c(report, "### Result content", paste(as.character(result_msg), collapse = "\n"), "")
 
-    # spacer
-    report <- c(report, "------------------------------", "")
+  # spacer
+  report <- c(report, "------------------------------", "")
   # print and return invisibly
   cat(paste(report, collapse = "\n"), "\n")
   invisible(report)
