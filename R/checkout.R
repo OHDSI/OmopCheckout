@@ -25,72 +25,91 @@ checkout <- function(result,
 }
 
 summarySuppress <- function(result) {
-  set <- omopgenerics::settings(result)
-  id <- set$result_id |> unique()
-  isSuppressed <- omopgenerics::isResultSuppressed(result) |> suppressWarnings()
-  if (isSuppressed) {
-    minCellCount <- set |>
-      dplyr::pull(.data$min_cell_count) |>
-      as.numeric()
-    set <- set |>
-      dplyr::mutate(min_cell_count = 0L)
-    res_new <- omopgenerics::newSummarisedResult(result, settings = set) |>
-      omopgenerics::suppress(minCellCount = minCellCount)
-    if (all(result == res_new)) {
-      return(paste0("result ", id, " correctly suppressed with minCellCount = ", minCellCount))
-    } else {
-      return(paste0("result ", id, " not correctly suppressed with minCellCount = ", minCellCount))
-    }
-  } else {
-    return(paste0("result ", id, " not suppressed"))
-  }
+  ids <- unique(result$result_id)
+  msg <- character(0)
+  for (id in ids) {
+    res <- result |> omopgenerics::filterSettings(.data$result_id == .env$id)
+    set <- omopgenerics::settings(res)
+    isSuppressed <- suppressWarnings(
+      omopgenerics::isResultSuppressed(res)
+    )
 
-  return(NULL)
+    if (!isSuppressed) {
+      msg <- c(msg, paste0("result ", id, " not suppressed"))
+    } else {
+      minCellCount <- set |>
+        dplyr::pull(.data$min_cell_count) |>
+        as.numeric()
+
+      set0 <- set |>
+        dplyr::mutate(min_cell_count = 0L)
+
+      res_new <- omopgenerics::newSummarisedResult(res, settings = set0) |>
+        omopgenerics::suppress(minCellCount = minCellCount)
+
+      if (isTRUE(dplyr::all_equal(res, res_new))) {
+        msg <- c(msg, paste0("result ", id, " correctly suppressed with minCellCount = ", minCellCount))
+      } else {
+        msg <- c(msg, paste0("result ", id, " not correctly suppressed with minCellCount = ", minCellCount))
+      }
+    }
+  }
+  return(msg)
 }
+
 
 summaryPackages <- function(result) {
-  if (length(result) == 0) {
-    return(paste0(
-      "package name = ",NA_character_, "; version = ", NA_character_, "; number records = ",
-      0L
-    ))
-  }
-  x <- result |>
-    omopgenerics::addSettings(
-          settingsColumn = c("package_name", "package_version")
-        ) |>
-        dplyr::group_by(.data$package_name, .data$package_version) |>
-        dplyr::summarise(number_rows = dplyr::n(), .groups = "drop") |>
-        dplyr::right_join(
-          omopgenerics::settings(result) |>
-            dplyr::select(c("package_name", "package_version")) |>
-            dplyr::distinct(),
-          by = c("package_name", "package_version")
-        ) |>
-        dplyr::mutate(number_rows = dplyr::coalesce(.data$number_rows, 0))
 
-        return(paste0(
-          "package name = ",x$package_name, "; version = ", x$package_version, "; number records = ",
-          x$number_rows
-        ) )
+  if (nrow(result) == 0) {
+    return(
+      paste0(
+        "package name = ", NA_character_,
+        "; version = ", NA_character_,
+        "; number records = 0"
+      )
+    )
+  }
+
+  result <- result |>
+    omopgenerics::addSettings(
+      settingsColumn = c("package_name", "package_version")
+    )
+  x <- result |>
+    dplyr::group_by(.data$package_name, .data$package_version) |>
+    dplyr::summarise(number_rows = dplyr::n(), result_id = list(sort(unique(result_id))), .groups = "drop") |>
+    dplyr::mutate(number_rows = dplyr::coalesce(.data$number_rows, 0L))
+
+  paste0(
+    "package name = ", x$package_name,
+    "; version = ", x$package_version,
+    "; result id = ", sapply(x2$result_id, function(v) paste(v, collapse = ", ")),
+    "; number records = ", x$number_rows
+  )
 }
+
 
 summaryResult <- function(result) {
-  if (length(result) == 0) {
-    return()
-  }
-  x <- result |>
-    omopgenerics::addSettings(
-      settingsColumn = c("result_type")
-    ) |>
-    dplyr::group_by(.data$result_type, .data$variable_name, .data$estimate_name) |>
-    dplyr::summarise(number_rows = dplyr::n(), .groups = "drop")
 
-  return(paste0(
-    "result type = ",x$result_type, "; variable name = ", x$variable_name, "; estimate name = ", x$estimate_name,"; number records = ",
-    x$number_rows
-  ) )
+  if (nrow(result) == 0) {
+    return(character(0))
+  }
+
+  x <- result |>
+    dplyr::group_by(
+      .data$estimate_name,
+      .data$strata_name ) |>
+    dplyr::summarise(
+      result_id = list(sort(unique(result_id))),
+      .groups = "drop"
+    )
+
+  paste(
+    "estimate name = ", x$estimate_name,
+    "; strata = ", x$strata_name,
+    "; result id = ", sapply(x$result_id, function(v) paste(v, collapse = ", ")),
+    collapse = "\n")
 }
+
 
 checkoutSummary <- function(result) {
   # handle empty input
@@ -104,9 +123,6 @@ checkoutSummary <- function(result) {
     invisible(report)
   }
 
-  # get settings and result ids (you said result_id is always present)
-  set <- omopgenerics::settings(result)
-  ids <- unique(set$result_id)
 
   # header
   report <- c(
@@ -118,28 +134,21 @@ checkoutSummary <- function(result) {
   )
 
   # iterate over each result id and append summaries
-  for (id in ids) {
-    res <- result |>
-      dplyr::filter(.data$result_id == id)
-
-    report <- c(report, paste0("## result: ", id), "")
 
     # suppression summary
-    suppress_msg <- summarySuppress(subset)
+    suppress_msg <- summarySuppress(result)
     report <- c(report, "### suppression", paste(as.character(suppress_msg), collapse = "\n"), "")
 
     # packages summary
-    packages_msg <- summaryPackages(subset)
+    packages_msg <- summaryPackages(result)
     report <- c(report, "### packages", paste(as.character(packages_msg), collapse = "\n"), "")
 
     # result rows summary
-    result_msg <- summaryResult(subset)
-    report <- c(report, "### result rows", paste(as.character(result_msg), collapse = "\n"), "")
+    result_msg <- summaryResult(result)
+    report <- c(report, "### result content", paste(as.character(result_msg), collapse = "\n"), "")
 
     # spacer
     report <- c(report, "------------------------------", "")
-  }
-
   # print and return invisibly
   cat(paste(report, collapse = "\n"), "\n")
   invisible(report)
