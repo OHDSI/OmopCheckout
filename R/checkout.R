@@ -20,7 +20,15 @@ checkout <- function(result,
   # suppress summary
   sup <- checkoutSuppress(result = result)
 }
-
+#' Check suppression correctness for each result_id
+#'
+#' For each unique `result_id` in `result`, checks whether suppression is applied
+#' and produces messages describing whether suppression is correct.
+#'
+#' @param result A `summarised_result` object.
+#'
+#' @return A character vector of messages (one per checked result id).
+#' @export
 summarySuppress <- function(result) {
   ids <- unique(result$result_id)
   msg <- character(0)
@@ -54,7 +62,15 @@ summarySuppress <- function(result) {
   return(msg)
 }
 
-
+#' Summarise package usage in the result
+#'
+#' Produces one-line summaries per package/version indicating number of rows and
+#' which result_ids each package/version covers.
+#'
+#' @param result A `summarised_result` object.
+#'
+#' @return A character vector of package summary strings.
+#' @export
 summaryPackages <- function(result) {
   if (nrow(result) == 0) {
     return(
@@ -83,7 +99,12 @@ summaryPackages <- function(result) {
   )
 }
 
-
+#' Summarise results by estimate/strata
+#'
+#' @param result A `summarised_result` object.
+#'
+#' @return A character vector describing estimate/strata groupings and result ids.
+#' @export
 summaryResult <- function(result) {
   if (nrow(result) == 0) {
     return(character(0))
@@ -107,7 +128,16 @@ summaryResult <- function(result) {
   )
 }
 
-
+#' Create a markdown-style checkout summary
+#'
+#' Generate a small markdown report summarising suppression, packages and result
+#' content for a `summarised_result`.
+#'
+#' @param result A `summarised_result` object.
+#'
+#' @return Invisibly returns a character vector with the markdown lines (also
+#'   printed to console). The value is suitable for writing to an `.md` file.
+#' @export
 checkoutSummary <- function(result) {
   # handle empty input
   if (length(result) == 0 || nrow(result) == 0) {
@@ -120,7 +150,7 @@ checkoutSummary <- function(result) {
     invisible(report)
   }
 
-
+  ids <- result$result_id |> unique()
   # header
   report <- c(
     "# `<summarised_result>`",
