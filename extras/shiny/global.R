@@ -19,7 +19,8 @@ library(sortable)
 library(tidyr)
 library(visOmopResults)
 library(yaml)
-#library(OmopCheckout)
+#devtools::install_github("https://github.com/OHDSI/OmopCheckout/tree/issue_1")
+library(OmopCheckout)
 
 options(shiny.maxRequestSize = 500 * 1024^2) 
 # source functions

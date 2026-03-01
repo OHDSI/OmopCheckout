@@ -145,7 +145,7 @@ server <- function(input, output, session) {
       {
         capture.output({
           
-           omopcheckout::checkoutSummary(df)
+           OmopCheckout::checkoutSummary(df)
          
         })
       },
