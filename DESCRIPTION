@@ -13,10 +13,14 @@ RoxygenNote: 7.3.3
 Suggests: 
     bslib,
     rstudioapi,
-    testthat
+    testthat, 
+    shinycssloaders,
+    reactable, 
+    shiny
 URL: https://OHDSI.github.io/OmopCheckout/
 BugReports: https://github.com/OHDSI/OmopCheckout/issues
 Imports: 
     commonmark,
     omopgenerics,
-    rlang
+    rlang, 
+    dplyr

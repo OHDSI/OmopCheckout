@@ -88,7 +88,7 @@ summaryPackages <- function(result) {
     )
   x <- result |>
     dplyr::group_by(.data$package_name, .data$package_version) |>
-    dplyr::summarise(number_rows = dplyr::n(), result_id = list(sort(unique(result_id))), .groups = "drop") |>
+    dplyr::summarise(number_rows = dplyr::n(), result_id = list(sort(unique(.data$result_id))), .groups = "drop") |>
     dplyr::mutate(number_rows = dplyr::coalesce(.data$number_rows, 0L))
 
   paste0(
@@ -116,7 +116,7 @@ summaryResult <- function(result) {
       .data$strata_name
     ) |>
     dplyr::summarise(
-      result_id = list(sort(unique(result_id))),
+      result_id = list(sort(unique(.data$result_id))),
       .groups = "drop"
     )
 

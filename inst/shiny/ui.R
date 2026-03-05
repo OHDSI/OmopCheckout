@@ -21,39 +21,37 @@ ui <- bslib::page_navbar(
   bslib::nav_panel(
     title = "OmopCheckout",
     icon = shiny::icon("magnifying-glass-chart"),
-    
+
     fileInput(
       "file_results",
       "Upload Summarised Results",
       accept = c(".csv")
     ),
-    
+
     bslib::navset_tab(
-      
+
       bslib::nav_panel(
         title = "Explore Results",
         tags$h3("Summarised Results"),
-        reactable::reactableOutput("results_contents"),
+        shinycssloaders::withSpinner(reactable::reactableOutput("results_contents")),
+
         verbatimTextOutput("debug_uploaded")
       ),
-      
+
+      # inside your OmopCheckout navset_tab / nav_panel
       bslib::nav_panel(
         title = "Checkout Summary",
-        tags$h3("Checkout Summary"),
-        
-        # Rendered (HTML) report
-        htmlOutput("checkout_summary_html"),
-        
-        # Raw markdown for copy/paste or debugging (collapsible)
-        shiny::tags$details(
-          shiny::tags$summary("Show raw markdown report"),
-          shiny::verbatimTextOutput("checkout_summary_md")
+       # tags$h3("Checkout Summary"),
+        # main output rendered by server as structured UI
+        uiOutput("checkout_summary_html")%>% shinycssloaders::withSpinner(type = 1, color = "#0d6efd"),
+        # Raw markdown collapsible + download
+        tags$details(
+          tags$summary("Show raw markdown report"),
+          verbatimTextOutput("checkout_summary_md")
         ),
-        
-        # Download the markdown report
-        shiny::downloadButton("download_checkout_md", "Download summary (.md)")
+        downloadButton("download_checkout_md", "Download summary (.md)")
       )
-      
+
     )
   ),
   bslib::nav_spacer(),
