@@ -1,20 +1,24 @@
 
+#' Launch the OmopCheckout Shiny application
+#'
+#' @export
 checkoutShiny <- function() {
-  rlang::check_required("bslib")
 
-  # create ui
-  ui <- bslib::page_navbar(
+  # Check required packages
+  rlang::check_installed(c(
+    "shiny",
+    "bslib",
+    "reactable",
+    "dplyr",
+    "omopgenerics",
+    "commonmark",
+    "shinycssloaders" ,
+    "rlang"
+  ))
 
+  # Run app
+  shiny::runApp(
+    appDir = system.file("shiny", package = "OmopCheckout")
   )
-
-  # upload data ui
-
-  # result suppression
-
-  # result summary
-
-  # result explorer
-
-  # result log
 
 }
