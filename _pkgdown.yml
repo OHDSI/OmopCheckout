@@ -2,3 +2,16 @@ url: https://OHDSI.github.io/OmopCheckout/
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    left:
+    - home
+    - reference
+    - articles
+    - news
+    - app
+  components:
+    app:
+      text: "OmopCheckout"
+      href: https://dpa-pde-oxford.shinyapps.io/OmopCheckout/
+
