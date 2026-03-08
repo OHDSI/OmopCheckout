@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>What the Package Does (Title Case) • OmopCheckout</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -13,6 +18,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="What the Package Does (Title Case)">
 <meta name="description" content="More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.">
 <meta property="og:description" content="More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.">
+<meta property="og:image" content="https://OHDSI.github.io/OmopCheckout/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -46,8 +52,11 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="omopcheckout">OmopCheckout<a class="anchor" aria-label="anchor" href="#omopcheckout"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="omopcheckout-">OmopCheckout 
+<a class="anchor" aria-label="anchor" href="#omopcheckout-"></a>
+</h1>
+</div>
 <!-- badges: start -->
 
 <p>The goal of <strong>OmopCheckout</strong> is to … <em>clearly state the main goal of the package</em></p>
@@ -62,9 +71,364 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://OHDSI.github.io/OmopCheckout/">OmopCheckout</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://OHDSI.github.io/OmopCheckout/">OmopCheckout</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ohdsi.github.io/OmopViewer/" class="external-link">OmopViewer</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/checkout.html">checkout</a></span><span class="op">(</span><span class="va">omopViewerResults</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ## &lt;summarised_result&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ### Suppression</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - Results suppressed with **minCellCount = 5** for result IDs: 1–122 (55,103 rows; 100.0%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ### Packages</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **CodelistGenerator (3.5.0)** for result IDs: 6–10 (183 rows ; 0.3%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *achilles_code_use* for result IDs: 6–10 (12 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *code_use* for result IDs: 6–10 (24 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *cohort_code_use* for result IDs: 6–10 (144 rows ; 0.3%)</span></span>
+<span><span class="co">#&gt; - *orphan_code_use* for result IDs: 6–10 (2 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *unmapped_codes* for result IDs: 6–10 (1 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **CohortCharacteristics (1.1.0)** for result IDs: 11–17 (31,413 rows ; 57.0%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *summarise_characteristics* for result IDs: 11–17 (63 rows ; 0.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_cohort_attrition* for result IDs: 11–17 (16 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_cohort_count* for result IDs: 11–17 (2 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_cohort_overlap* for result IDs: 11–17 (180 rows ; 0.3%)</span></span>
+<span><span class="co">#&gt; - *summarise_cohort_timing* for result IDs: 11–17 (30,930 rows ; 56.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_large_scale_characteristics* for result IDs: 11–17 (222 rows ; 0.4%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **CohortSurvival (1.1.0)** for result IDs: 96–115 (7,038 rows ; 12.8%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *survival_attrition* for result IDs: 96–115 (84 rows ; 0.2%)</span></span>
+<span><span class="co">#&gt; - *survival_estimates* for result IDs: 96–115 (6,588 rows ; 12.0%)</span></span>
+<span><span class="co">#&gt; - *survival_events* for result IDs: 96–115 (252 rows ; 0.5%)</span></span>
+<span><span class="co">#&gt; - *survival_summary* for result IDs: 96–115 (114 rows ; 0.2%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **DrugUtilisation (1.0.5)** for result IDs: 90–95 (339 rows ; 0.6%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *summarise_dose_coverage* for result IDs: 90–95 (32 rows ; 0.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_drug_restart* for result IDs: 90–95 (24 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_drug_utilisation* for result IDs: 90–95 (72 rows ; 0.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_indication* for result IDs: 90–95 (36 rows ; 0.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_proportion_of_patients_covered* for result IDs: 90–95 (115 rows ; 0.2%)</span></span>
+<span><span class="co">#&gt; - *summarise_treatment* for result IDs: 90–95 (60 rows ; 0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **IncidencePrevalence (1.2.1)** for result IDs: 18–89 (3,696 rows ; 6.7%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *incidence* for result IDs: 18–89 (1,176 rows ; 2.1%)</span></span>
+<span><span class="co">#&gt; - *incidence_attrition* for result IDs: 18–89 (840 rows ; 1.5%)</span></span>
+<span><span class="co">#&gt; - *prevalence* for result IDs: 18–89 (840 rows ; 1.5%)</span></span>
+<span><span class="co">#&gt; - *prevalence_attrition* for result IDs: 18–89 (840 rows ; 1.5%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **MeasurementDiagnostics (0.2.0)** for result IDs: 117–122 (8,312 rows ; 15.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *measurement_summary* for result IDs: 117–122 (2,080 rows ; 3.8%)</span></span>
+<span><span class="co">#&gt; - *measurement_value_as_concept* for result IDs: 117–122 (16 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *measurement_value_as_number* for result IDs: 117–122 (6,216 rows ; 11.3%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **OmopSketch (1.0.0)** for result IDs: 1–5 (4,049 rows ; 7.3%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *summarise_clinical_records* for result IDs: 1–5 (186 rows ; 0.3%)</span></span>
+<span><span class="co">#&gt; - *summarise_missing_data* for result IDs: 1–5 (114 rows ; 0.2%)</span></span>
+<span><span class="co">#&gt; - *summarise_observation_period* for result IDs: 1–5 (3,126 rows ; 5.7%)</span></span>
+<span><span class="co">#&gt; - *summarise_omop_snapshot* for result IDs: 1–5 (15 rows ; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *summarise_trend* for result IDs: 1–5 (608 rows ; 1.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **omopgenerics (1.3.5)** for result IDs: 116 (73 rows ; 0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *summarise_log_file* for result IDs: 116 (73 rows ; 0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ### Estimates</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **achilles_code_use** for result IDs: 9 (12 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *person_count* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *record_count* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **code_use** for result IDs: 8 (24 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *person_count* (12 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *record_count* (12 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **cohort_code_use** for result IDs: 7 (144 rows ; 0.3%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *person_count* (72 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *record_count* (72 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **incidence** for result IDs: 18–35 (1,176 rows ; 2.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *denominator_count* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *incidence_100000_pys* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *incidence_100000_pys_95CI_lower* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *incidence_100000_pys_95CI_upper* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *outcome_count* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *person_days* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *person_years* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **incidence_attrition** for result IDs: 36–53 (840 rows ; 1.5%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (840 rows; 1.5%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **measurement_summary** for result IDs: 117, 120 (2,080 rows ; 3.8%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *density_x* (1027 rows; 1.9%)</span></span>
+<span><span class="co">#&gt; - *density_y* (1027 rows; 1.9%)</span></span>
+<span><span class="co">#&gt; - *max* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *min* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **measurement_value_as_concept** for result IDs: 119, 122 (16 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (8 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage* (8 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **measurement_value_as_number** for result IDs: 118, 121 (6,216 rows ; 11.3%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *count_missing* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *density_x* (3072 rows; 5.6%)</span></span>
+<span><span class="co">#&gt; - *density_y* (3072 rows; 5.6%)</span></span>
+<span><span class="co">#&gt; - *max* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *min* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage_missing* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q01* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q05* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q95* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q99* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **orphan_code_use** for result IDs: 6 (2 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *person_count* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *record_count* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **prevalence** for result IDs: 54–71 (840 rows ; 1.5%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *denominator_count* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *outcome_count* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *prevalence* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *prevalence_95CI_lower* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; - *prevalence_95CI_upper* (168 rows; 0.3%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **prevalence_attrition** for result IDs: 72–89 (840 rows ; 1.5%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (840 rows; 1.5%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_characteristics** for result IDs: 14 (63 rows ; 0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (10 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *max* (7 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *mean* (5 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median* (7 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *min* (7 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage* (8 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25* (7 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75* (7 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *sd* (5 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_clinical_records** for result IDs: 3 (186 rows ; 0.3%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (30 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *max* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *mean* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *min* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *na_count* (39 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *na_percentage* (39 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage* (28 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *q25* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *sd* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *zero_count* (18 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *zero_percentage* (18 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_cohort_attrition** for result IDs: 13 (16 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (16 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_cohort_count** for result IDs: 12 (2 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_cohort_overlap** for result IDs: 11 (180 rows ; 0.3%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (90 rows; 0.2%)</span></span>
+<span><span class="co">#&gt; - *percentage* (90 rows; 0.2%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_cohort_timing** for result IDs: 15 (30,930 rows ; 56.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (60 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *density_x* (15360 rows; 27.9%)</span></span>
+<span><span class="co">#&gt; - *density_y* (15360 rows; 27.9%)</span></span>
+<span><span class="co">#&gt; - *max* (30 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *median* (30 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *min* (30 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *q25* (30 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *q75* (30 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_dose_coverage** for result IDs: 91 (32 rows ; 0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *count_missing* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *mean* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage_missing* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *sd* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_drug_restart** for result IDs: 94 (24 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (12 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage* (12 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_drug_utilisation** for result IDs: 93 (72 rows ; 0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (2 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *count_missing* (10 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *mean* (10 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median* (10 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage_missing* (10 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25* (10 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75* (10 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *sd* (10 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_indication** for result IDs: 92 (36 rows ; 0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (18 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage* (18 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_large_scale_characteristics** for result IDs: 16–17 (222 rows ; 0.4%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (111 rows; 0.2%)</span></span>
+<span><span class="co">#&gt; - *percentage* (111 rows; 0.2%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_log_file** for result IDs: 116 (73 rows ; 0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *date_time* (37 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *elapsed_time* (36 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_missing_data** for result IDs: 4 (114 rows ; 0.2%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *na_count* (39 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *na_percentage* (39 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *zero_count* (18 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *zero_percentage* (18 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_observation_period** for result IDs: 2 (3,126 rows ; 5.7%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (7 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *density_x* (1536 rows; 2.8%)</span></span>
+<span><span class="co">#&gt; - *density_y* (1536 rows; 2.8%)</span></span>
+<span><span class="co">#&gt; - *max* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *mean* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *min* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *na_count* (5 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *na_percentage* (5 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q05* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q95* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *sd* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *zero_count* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *zero_percentage* (3 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_omop_snapshot** for result IDs: 1 (15 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *description* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *documentation_reference* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *end_date* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *holder_name* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *package* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *person_count* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *release_date* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *snapshot_date* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *source_name* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *start_date* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *type* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *version* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *vocabulary_version* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *write_schema* (1 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_proportion_of_patients_covered** for result IDs: 90 (115 rows ; 0.2%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *denominator_count* (23 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *outcome_count* (23 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *ppc* (23 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *ppc_lower* (23 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *ppc_upper* (23 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_treatment** for result IDs: 95 (60 rows ; 0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (30 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; - *percentage* (30 rows; 0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **summarise_trend** for result IDs: 5 (608 rows ; 1.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (304 rows; 0.6%)</span></span>
+<span><span class="co">#&gt; - *percentage* (304 rows; 0.6%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **survival_attrition** for result IDs: 108–111, 115 (84 rows ; 0.2%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *count* (84 rows; 0.2%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **survival_estimates** for result IDs: 96–99, 112 (6,588 rows ; 12.0%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *estimate* (2196 rows; 4.0%)</span></span>
+<span><span class="co">#&gt; - *estimate_95CI_lower* (2196 rows; 4.0%)</span></span>
+<span><span class="co">#&gt; - *estimate_95CI_upper* (2196 rows; 4.0%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **survival_events** for result IDs: 100–103, 113 (252 rows ; 0.5%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *n_censor_count* (84 rows; 0.2%)</span></span>
+<span><span class="co">#&gt; - *n_events_count* (84 rows; 0.2%)</span></span>
+<span><span class="co">#&gt; - *n_risk_count* (84 rows; 0.2%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **survival_summary** for result IDs: 104–107, 114 (114 rows ; 0.2%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *median_survival* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median_survival_95CI_higher* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *median_survival_95CI_lower* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *n_events_count* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *number_records_count* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q05_survival* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q05_survival_95CI_higher* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q05_survival_95CI_lower* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q0_survival* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q0_survival_95CI_higher* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q0_survival_95CI_lower* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q100_survival* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q100_survival_95CI_higher* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q100_survival_95CI_lower* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25_survival* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25_survival_95CI_higher* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q25_survival_95CI_lower* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75_survival* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75_survival_95CI_higher* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q75_survival_95CI_lower* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q95_survival* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q95_survival_95CI_higher* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *q95_survival_95CI_lower* (4 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *restricted_mean_survival* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *restricted_mean_survival_95CI_lower* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; - *restricted_mean_survival_95CI_upper* (6 rows; &lt;0.1%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; **unmapped_codes** for result IDs: 10 (1 rows ; &lt;0.1%):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - *record_count* (1 rows; &lt;0.1%)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

@@ -1,13 +1,11 @@
-# Check suppression correctness for each result_id
+# Summarise results by estimate/strata
 
-For each unique \`result_id\` in \`result\`, checks whether suppression
-is applied and produces messages describing whether suppression is
-correct.
+Summarise results by estimate/strata
 
 ## Usage
 
 ``` r
-summarySuppress(result, output = "console")
+summaryEstimates(result, output = "console")
 ```
 
 ## Arguments
@@ -31,4 +29,4 @@ summarySuppress(result, output = "console")
 
 ## Value
 
-A character vector of messages (one per checked result id).
+A character vector describing estimate/strata groupings and result ids.

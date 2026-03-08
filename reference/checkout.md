@@ -1,11 +1,11 @@
-# An
+# Check a summarised_result object
 
-An
+Check a summarised_result object
 
 ## Usage
 
 ``` r
-checkout(result, file = NULL)
+checkout(result, output = "console")
 ```
 
 ## Arguments
@@ -14,9 +14,18 @@ checkout(result, file = NULL)
 
   A \`summarised_result\` object.
 
-- file:
+- output:
 
-  Name of an '.md' file to write the report.
+  Character vector, it can be:
+
+  - `"console"` to print the summary in the console.
+
+  - `"text"` to return a character vector.
+
+  - `"show"` to show the result in the viewer (html format).
+
+  - Otherwise `output` will be used as the name of an `'.md'` file to
+    write the report in.
 
 ## Value
 
