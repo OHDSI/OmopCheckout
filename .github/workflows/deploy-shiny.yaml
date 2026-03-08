@@ -42,7 +42,13 @@ jobs:
         run: Rscript extras/createShiny.R
 
       - name: Create renv file
-        run: Rscript -e 'renv::init()'
+        run: |
+          Rscript -e '
+            renv::init()
+            install.packages("pak")
+            pak::pkg_install("ohdsi/OmopCheckout")
+            renv::record("OmopCheckout")
+          '
         working-directory: extras/shiny/
 
       - name: Deploy TEST to shinyapps.io
