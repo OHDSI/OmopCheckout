@@ -210,7 +210,7 @@ packagesCheck <- function(result) {
           n <- sum(xx$n)
           paste0(
             "- *", rt, "* for result IDs: ",
-            collapseIds(x$result_id), " (", nicenum(n), " rows ; ",
+            collapseIds(xx$result_id), " (", nicenum(n), " rows ; ",
             percentage(n/total), ")"
           )
         })
