@@ -12,15 +12,25 @@ LazyData: true
 RoxygenNote: 7.3.3
 Suggests: 
     bslib,
+    markdown,
+    OmopViewer,
+    purrr,
+    reactable,
+    readr,
     rstudioapi,
-    testthat, 
+    shiny,
     shinycssloaders,
-    reactable, 
-    shiny
+    shinyjs,
+    shinyWidgets,
+    testthat,
+    yaml
 URL: https://OHDSI.github.io/OmopCheckout/
 BugReports: https://github.com/OHDSI/OmopCheckout/issues
 Imports: 
+    cli,
     commonmark,
+    dplyr,
     omopgenerics,
-    rlang, 
-    dplyr
+    rlang
+Depends: 
+    R (>= 3.5)

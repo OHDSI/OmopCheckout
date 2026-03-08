@@ -6,14 +6,8 @@ checkoutShiny <- function() {
 
   # Check required packages
   rlang::check_installed(c(
-    "shiny",
-    "bslib",
-    "reactable",
-    "dplyr",
-    "omopgenerics",
-    "commonmark",
-    "shinycssloaders" ,
-    "rlang"
+    "bslib", "markdown", "purrr", "reactable", "readr", "rstudioapi", "shiny",
+    "shinycssloaders", "shinyjs", "shinyWidgets", "testthat", "yaml"
   ))
 
   # Run app
