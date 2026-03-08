@@ -9,9 +9,14 @@ summarySuppress(result, output = "console")
 \arguments{
 \item{result}{A `summarised_result` object.}
 
-\item{output}{Either "console" to print the summary in the console, or "text"
-to return a character vector or the name of an '.md' file to write the report
-in.}
+\item{output}{Character vector, it can be:
+\itemize{
+  \item \code{"console"} to print the summary in the console.
+  \item \code{"text"} to return a character vector.
+  \item \code{"show"} to show the result in the viewer (html format).
+  \item Otherwise \code{output} will be used as the name of an \code{'.md'}
+    file to write the report in.
+}}
 }
 \value{
 A character vector of messages (one per checked result id).

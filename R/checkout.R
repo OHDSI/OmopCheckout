@@ -1,10 +1,16 @@
-#' An
+
+#' Check a summarised_result object
 #'
 #' @param result A `summarised_result` object.
-#' @param output Either "console" to print the summary in the console, or "text"
-#' to return a character vector, or "show" to show the result in the viewer in
-#' html format, otherwise `output` will be used as the name of an '.md' file to
-#' write the report in.
+#' @param output Character vector it can be:
+#' @param output Character vector, it can be:
+#' \itemize{
+#'   \item \code{"console"} to print the summary in the console.
+#'   \item \code{"text"} to return a character vector.
+#'   \item \code{"show"} to show the result in the viewer (html format).
+#'   \item Otherwise \code{output} will be used as the name of an \code{'.md'}
+#'     file to write the report in.
+#' }
 #'
 #' @return Whether the result object passes the checks or not.
 #' @export
