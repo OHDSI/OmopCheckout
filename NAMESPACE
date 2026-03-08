@@ -2,7 +2,6 @@
 
 export(checkout)
 export(checkoutShiny)
-export(checkoutSummary)
+export(summaryEstimates)
 export(summaryPackages)
-export(summaryResult)
 export(summarySuppress)

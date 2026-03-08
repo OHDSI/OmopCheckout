@@ -4,12 +4,14 @@
 \alias{checkout}
 \title{An}
 \usage{
-checkout(result, file = NULL)
+checkout(result, output = "console")
 }
 \arguments{
 \item{result}{A `summarised_result` object.}
 
-\item{file}{Name of an '.md' file to write the report.}
+\item{output}{Either "console" to print the summary in the console, or "text"
+to return a character vector or the name of an '.md' file to write the report
+in.}
 }
 \value{
 Whether the result object passes the checks or not.

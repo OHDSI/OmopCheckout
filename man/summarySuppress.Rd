@@ -4,10 +4,14 @@
 \alias{summarySuppress}
 \title{Check suppression correctness for each result_id}
 \usage{
-summarySuppress(result)
+summarySuppress(result, output = "console")
 }
 \arguments{
 \item{result}{A `summarised_result` object.}
+
+\item{output}{Either "console" to print the summary in the console, or "text"
+to return a character vector or the name of an '.md' file to write the report
+in.}
 }
 \value{
 A character vector of messages (one per checked result id).

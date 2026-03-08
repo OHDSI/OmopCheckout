@@ -86,7 +86,7 @@ server <- function(input, output, session) {
       summary_results(rt)
 
       log_msg("Creating create checkout report.")
-      checkout_md(capture.output(OmopCheckout::checkoutSummary(results)))
+      checkout_md(OmopCheckout::checkout(results, output = "text"))
 
       log_msg("Processing complete.")
 

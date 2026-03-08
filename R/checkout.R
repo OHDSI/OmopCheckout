@@ -1,65 +1,60 @@
 #' An
 #'
 #' @param result A `summarised_result` object.
-#' @param file Name of an '.md' file to write the report.
+#' @param output Either "console" to print the summary in the console, or "text"
+#' to return a character vector, or "show" to show the result in the viewer in
+#' html format, otherwise `output` will be used as the name of an '.md' file to
+#' write the report in.
 #'
 #' @return Whether the result object passes the checks or not.
 #' @export
 #'
-checkout <- function(result,
-                     file = NULL) {
+checkout <- function(result, output = "console") {
   # initial check
-  result <- omopgenerics::validateResultArgument(result = result)
-  omopgenerics::assertCharacter(file, length = 1, minNumCharacter = 1, null = TRUE)
-  if (!is.null(file)) {
-    if (!endsWith(x = file, suffix = ".md")) {
-      file <- paste0(file, ".md")
-    }
-  }
+  omopgenerics::validateResultArgument(result)
+  output <- validateOutput(output)
 
   # suppress summary
-  sup <- checkoutSuppress(result = result)
+  report <- c(
+    "## <summarised_result>",
+    "### Suppression",
+    suppressCheck(result),
+    "### Packages",
+    packagesCheck(result),
+    "### Estimates",
+    estimatesCheck(result)
+  ) |>
+    paste0(collapse = "\n\n") |>
+    writeReport(output)
+
+  if (output == "text") {
+    report
+  } else {
+    invisible(report)
+  }
 }
 #' Check suppression correctness for each result_id
 #'
 #' For each unique `result_id` in `result`, checks whether suppression is applied
 #' and produces messages describing whether suppression is correct.
 #'
-#' @param result A `summarised_result` object.
+#' @inheritParams checkout
 #'
 #' @return A character vector of messages (one per checked result id).
 #' @export
-summarySuppress <- function(result) {
-  ids <- unique(result$result_id)
-  msg <- character(0)
-  for (id in ids) {
-    res <- result |> omopgenerics::filterSettings(.data$result_id == .env$id)
-    set <- omopgenerics::settings(res)
-    isSuppressed <- suppressWarnings(
-      omopgenerics::isResultSuppressed(res)
-    )
+summarySuppress <- function(result, output = "console") {
+  # initial check
+  omopgenerics::validateResultArgument(result)
+  output <- validateOutput(output)
 
-    if (!isSuppressed) {
-      msg <- c(msg, paste0("result ", id, " not suppressed"))
-    } else {
-      minCellCount <- set |>
-        dplyr::pull(.data$min_cell_count) |>
-        as.numeric()
+  report <- suppressCheck(result) |>
+    writeReport(output)
 
-      set0 <- set |>
-        dplyr::mutate(min_cell_count = 0L)
-
-      res_new <- omopgenerics::newSummarisedResult(res, settings = set0) |>
-        omopgenerics::suppress(minCellCount = minCellCount)
-
-      if (isTRUE(dplyr::all_equal(res, res_new))) {
-        msg <- c(msg, paste0("result ", id, " correctly suppressed with minCellCount = ", minCellCount))
-      } else {
-        msg <- c(msg, paste0("result ", id, " not correctly suppressed with minCellCount = ", minCellCount))
-      }
-    }
+  if (output == "text") {
+    report
+  } else {
+    invisible(report)
   }
-  return(msg)
 }
 
 #' Summarise package usage in the result
@@ -67,120 +62,234 @@ summarySuppress <- function(result) {
 #' Produces one-line summaries per package/version indicating number of rows and
 #' which result_ids each package/version covers.
 #'
-#' @param result A `summarised_result` object.
+#' @inheritParams checkout
 #'
 #' @return A character vector of package summary strings.
 #' @export
-summaryPackages <- function(result) {
-  if (nrow(result) == 0) {
-    return(
-      paste0(
-        "package name = ", NA_character_,
-        "; version = ", NA_character_,
-        "; number records = 0"
-      )
-    )
+summaryPackages <- function(result, output = "console") {
+  # initial check
+  omopgenerics::validateResultArgument(result)
+  output <- validateOutput(output)
+
+  report <- packagesCheck(result) |>
+    writeReport(output)
+
+  if (output == "text") {
+    report
+  } else {
+    invisible(report)
   }
-
-  result <- result |>
-    omopgenerics::addSettings(
-      settingsColumn = c("package_name", "package_version")
-    )
-  x <- result |>
-    dplyr::group_by(.data$package_name, .data$package_version) |>
-    dplyr::summarise(number_rows = dplyr::n(), result_id = list(sort(unique(.data$result_id))), .groups = "drop") |>
-    dplyr::mutate(number_rows = dplyr::coalesce(.data$number_rows, 0L))
-
-  paste0(
-    "package name = ", x$package_name,
-    "; version = ", x$package_version,
-    "; result id = ", sapply(x$result_id, function(v) paste(v, collapse = ", ")),
-    "; number records = ", x$number_rows
-  )
 }
 
 #' Summarise results by estimate/strata
 #'
-#' @param result A `summarised_result` object.
+#' @inheritParams checkout
 #'
 #' @return A character vector describing estimate/strata groupings and result ids.
 #' @export
-summaryResult <- function(result) {
-  if (nrow(result) == 0) {
-    return(character(0))
-  }
+summaryEstimates <- function(result, output = "console") {
+  # initial check
+  omopgenerics::validateResultArgument(result)
+  output <- validateOutput(output)
 
-  x <- result |>
-    dplyr::group_by(
-      .data$estimate_name,
-      .data$strata_name
-    ) |>
-    dplyr::summarise(
-      result_id = list(sort(unique(.data$result_id))),
-      .groups = "drop"
-    )
+  report <- estimatesCheck(result) |>
+    writeReport(output)
 
-  paste(
-    "estimate name = ", x$estimate_name,
-    "; strata = ", x$strata_name,
-    "; result id = ", sapply(x$result_id, function(v) paste(v, collapse = ", ")),
-    collapse = "\n"
-  )
-}
-
-#' Create a markdown-style checkout summary
-#'
-#' Generate a small markdown report summarising suppression, packages and result
-#' content for a `summarised_result`.
-#'
-#' @param result A `summarised_result` object.
-#'
-#' @return Invisibly returns a character vector with the markdown lines (also
-#'   printed to console). The value is suitable for writing to an `.md` file.
-#' @export
-checkoutSummary <- function(result) {
-  # handle empty input
-  if (length(result) == 0 || nrow(result) == 0) {
-    report <- c(
-      "# `<summarised_result>`",
-      "",
-      "No data in `result`."
-    )
-    cat(paste(report, collapse = "\n"), "\n")
+  if (output == "text") {
+    report
+  } else {
     invisible(report)
   }
-
-  ids <- result$result_id |> unique()
-  # header
-  report <- c(
-    "# `<summarised_result>`",
-    "",
-    paste0("Total rows in object: ", nrow(result)),
-    paste0("Result IDs: ", paste(ids, collapse = ", ")),
-    ""
-  )
-
-  # iterate over each result id and append summaries
-
-  # suppression summary
-  suppress_msg <- summarySuppress(result)
-  report <- c(report, "### Suppression", paste(as.character(suppress_msg), collapse = "\n"), "")
-
-  # packages summary
-  packages_msg <- summaryPackages(result)
-  report <- c(report, "### Packages", paste(as.character(packages_msg), collapse = "\n"), "")
-
-  # result rows summary
-  result_msg <- summaryResult(result)
-  report <- c(report, "### Result content", paste(as.character(result_msg), collapse = "\n"), "")
-
-  # spacer
-  report <- c(report, "------------------------------", "")
-  # print and return invisibly
-  cat(paste(report, collapse = "\n"), "\n")
-  invisible(report)
 }
 
+validateOutput <- function(output, call = parent.frame()) {
+  omopgenerics::assertCharacter(output, length = 1, call = call)
+  if (!output %in% c("console", "text", "show") & !endsWith(output, ".md")) {
+    output <- paste0(output, ".md")
+  }
+  output
+}
+suppressCheck <- function(result) {
+  counts <- result |>
+    dplyr::group_by(.data$result_id) |>
+    dplyr::tally()
+  set <- omopgenerics::settings(result)
+  if (nrow(set) == 0) {
+    return("*Empty results*")
+  }
+  set |>
+    dplyr::select("result_id", "min_cell_count") |>
+    dplyr::mutate(min_cell_count = dplyr::coalesce(
+      as.numeric(.data$min_cell_count), 0
+    )) |>
+    dplyr::arrange(.data$min_cell_count) |>
+    dplyr::group_by(.data$min_cell_count) |>
+    dplyr::group_split() |>
+    as.list() |>
+    purrr::map(\(x) {
+      n <- x |>
+        dplyr::left_join(counts, by = "result_id") |>
+        dplyr::mutate(n = dplyr::coalesce(.data$n, 0)) |>
+        dplyr::pull("n") |>
+        sum()
+      minCellCount <- unique(x$min_cell_count)
+      if (minCellCount == 0) {
+        msg <- paste0(
+          "- Unsuppresed results for result IDs: ",
+          collapseIds(x$result_id),
+          " (",
+          nicenum(n),
+          "rows; ",
+          percentage(n/sum(counts$n)),
+          ")"
+        )
+      } else {
+        msg <- paste0(
+          "- Results suppressed with **minCellCount = ",
+          minCellCount,
+          "** for result IDs: ",
+          collapseIds(x$result_id),
+          " (",
+          nicenum(n),
+          " rows; ",
+          percentage(n/sum(counts$n)),
+          ")"
+        )
+      }
+    }) |>
+    paste0(collapse = "\n")
+}
+packagesCheck <- function(result) {
+  counts <- result |>
+    dplyr::group_by(.data$result_id) |>
+    dplyr::tally()
+  total <- sum(counts$n)
+  set <- omopgenerics::settings(result)
+  if (nrow(set) == 0) {
+    return("*Empty results*")
+  }
+
+  set |>
+    dplyr::select("result_id", "package_name", "package_version", "result_type") |>
+    dplyr::mutate(dplyr::across(
+      c("package_name", "package_version"),
+      \(x) {
+        x[is.na(x)] <- "unknown"
+        x[x == "-"] <- "unknown"
+        x
+      }
+    )) |>
+    dplyr::arrange(.data$package_name, .data$package_version) |>
+    dplyr::group_by(.data$package_name, .data$package_version) |>
+    dplyr::group_split() |>
+    as.list() |>
+    purrr::map(\(x) {
+      pkg <- unique(x$package_name)
+      version <- unique(x$package_version)
+      x <- x |>
+        dplyr::left_join(counts, by = "result_id") |>
+        dplyr::mutate(n = dplyr::coalesce(.data$n, 0))
+      n <- sum(x$n)
+      msg <- paste0(
+        "**", pkg, " (", version, ")** for result IDs: ",
+        collapseIds(x$result_id), " (", nicenum(n), " rows ; ",
+        percentage(n/total), "):"
+      )
+      msgs <- x |>
+        dplyr::group_by(.data$result_type) |>
+        dplyr::group_split() |>
+        purrr::map_chr(\(xx) {
+          rt <- unique(xx$result_type)
+          n <- sum(xx$n)
+          paste0(
+            "- *", rt, "* for result IDs: ",
+            collapseIds(x$result_id), " (", nicenum(n), " rows ; ",
+            percentage(n/total), ")"
+          )
+        })
+      paste0(c(msg, "", msgs, ""), collapse = "\n")
+    }) |>
+    paste0(collapse = "\n")
+}
+estimatesCheck <- function(result) {
+  counts <- result |>
+    dplyr::group_by(.data$result_id, .data$estimate_name) |>
+    dplyr::tally() |>
+    dplyr::ungroup()
+  total <- sum(counts$n)
+  set <- omopgenerics::settings(result) |>
+    dplyr::select("result_id", "result_type") |>
+    dplyr::inner_join(counts, by = "result_id")
+  if (nrow(set) == 0) {
+    return("*Empty results*")
+  }
+
+  set  |>
+    dplyr::arrange(.data$result_type) |>
+    dplyr::group_by(.data$result_type) |>
+    dplyr::group_split() |>
+    as.list() |>
+    purrr::map(\(x) {
+      rt <- unique(x$result_type)
+      n <- sum(x$n)
+      msg <- paste0(
+        "**", rt, "** for result IDs: ", collapseIds(x$result_id), " (",
+        nicenum(n), " rows ; ", percentage(n/total), "):"
+      )
+      x <- x |>
+        dplyr::group_by(.data$estimate_name) |>
+        dplyr::summarise(n = sum(.data$n))
+      msgs <- paste0(
+        "- *", x$estimate_name, "* (", x$n, " rows; ", percentage(x$n/total), ")"
+      )
+      paste0(c(msg, "", msgs, ""), collapse = "\n")
+    }) |>
+    paste0(collapse = "\n")
+}
+writeReport <- function(x, output) {
+  if (output == "console") {
+    cat(x)
+  } else if (output == "show") {
+    showReport(x)
+  } else if (output != "text") {
+    cli::cli_inform(c("i" = "Writting {.cls checkout_summary} in {.path {output}}"))
+    writeLines(text = x, con = output)
+  }
+  return(x)
+}
+nicenum <- function(x) {
+  format(x, big.mark = ",")
+}
+percentage <- function(x) {
+  purrr::map_chr(x, \(x) {
+    if (is.na(x)) {
+      return("-%")
+    }
+    if (x == 0) {
+      return("0%")
+    }
+    x <- round(100 * x, 1)
+    if (x == 0) {
+      return("<0.1%")
+    } else {
+      return(paste0(sprintf("%.1f", x), "%"))
+    }
+  })
+}
+collapseIds <- function(ids) {
+  ids <- sort(unique(ids))
+
+  # Group into consecutive runs
+  groups <- split(ids, cumsum(c(1, diff(ids) != 1)))
+
+  # Format each group
+  parts <- sapply(groups, function(g) {
+    if (length(g) == 1) as.character(g)
+    else paste(g[1], g[length(g)], sep = "\u2013")  # en dash
+  })
+
+  paste(parts, collapse = ", ")
+}
 showReport <- function(x) {
   if (interactive()) {
     # temporary file
@@ -208,11 +317,5 @@ showReport <- function(x) {
     }
   }
 
-  invisible()
-}
-writeReport <- function(x, file) {
-  if (!is.null(file)) {
-    writeLines(text = x, con = file)
-  }
   invisible()
 }
