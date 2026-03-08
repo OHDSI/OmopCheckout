@@ -111,11 +111,11 @@ server <- function(input, output, session) {
   })
 
   # check out summary ----
-  output$checkout_summary_md <- renderText({
+  output$checkout_summary_md <- shiny::renderText({
     paste(checkout_md(), collapse = "\n")
   })
 
-  output$download_checkout_md <- downloadHandler(
+  output$download_checkout_md <- shiny::downloadHandler(
     filename = function() paste0("checkout_summary_", Sys.Date(), ".md"),
     content = function(file) writeLines(checkout_md(), con = file)
   )

@@ -44,7 +44,7 @@ ui <- bslib::page_navbar(
 
     # processing log — visible while results are being processed
     shinyjs::hidden(
-      div(
+      shiny::div(
         id = "results_processing_wrapper",
 
         bslib::card(
@@ -60,7 +60,7 @@ ui <- bslib::page_navbar(
 
     # summary panel — hidden until processing is complete
     shinyjs::hidden(
-      div(
+      shiny::div(
         id = "results_summary_wrapper",
 
         bslib::navset_card_tab(
@@ -75,12 +75,12 @@ ui <- bslib::page_navbar(
               shinycssloaders::withSpinner(type = 6),
 
             # Raw markdown collapsible + download
-            tags$details(
-              tags$summary("Show raw markdown report"),
-              verbatimTextOutput("checkout_summary_md")
+            shiny::tags$details(
+              shiny::tags$summary("Show raw markdown report"),
+              shiny::verbatimTextOutput("checkout_summary_md")
             ),
 
-            downloadButton("download_checkout_md", "Download summary (.md)")
+            shiny::downloadButton("download_checkout_md", "Download summary (.md)")
           ),
 
           # explore results panel
