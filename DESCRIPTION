@@ -16,6 +16,7 @@ Suggests:
     markdown,
     OmopViewer,
     purrr,
+    progress,
     reactable,
     readr,
     renv,
