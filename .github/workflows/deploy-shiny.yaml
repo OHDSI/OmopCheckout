@@ -41,6 +41,9 @@ jobs:
       - name: Create shiny app
         run: Rscript extras/createShiny.R
 
+      - name: Install OmopCheckout into runner library
+        run: Rscript -e 'pak::pkg_install("ohdsi/OmopCheckout")
+
       - name: Create renv file
         run: |
           Rscript -e '
