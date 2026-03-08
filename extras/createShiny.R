@@ -8,6 +8,10 @@ file.copy(
   recursive = TRUE
 )
 
+print(list.files(shinyDirectory, full.names = TRUE))
+
+print(list.files(getwd(), full.names = TRUE))
+
 bp <- file.path(getwd(), "extras", "shiny", "background.md")
 backgoundFile <- c(
   readLines(con = bp),
