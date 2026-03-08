@@ -87,20 +87,21 @@ ui <- bslib::page_navbar(
           bslib::nav_panel(
             title = "Results explorer",
 
-            # to select the result_type to explore
-            shinyWidgets::pickerInput(
-              label = "Result type to explore",
-              inputId = "result_type",
-              choices = NULL,
-              selected = NULL,
-              multiple = FALSE
-            ),
-
-            # summary of result_type generation
-            shiny::textOutput("result_type_generation"),
-
-            # card to explore
             bslib::card(
+
+              # to select the result_type to explore
+              shinyWidgets::pickerInput(
+                label = "Result type to explore",
+                inputId = "result_type",
+                choices = NULL,
+                selected = NULL,
+                multiple = FALSE
+              ),
+
+              # summary of result_type generation
+              shiny::textOutput("result_type_generation"),
+
+              # to explore
               reactable::reactableOutput("results_contents") |>
                 shinycssloaders::withSpinner()
             )

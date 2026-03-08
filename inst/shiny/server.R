@@ -7,13 +7,8 @@ server <- function(input, output, session) {
 
   # Helper: append a line directly to the UI output, bypassing reactive batching
   log_msg <- function(msg) {
-    line <- paste0("[", format(Sys.time(), "%H:%M:%S"), "] ", msg)
-    shinyjs::html(
-      id       = "processing_log",
-      html     = paste0(line, "\n"),
-      add      = TRUE   # append rather than replace
-    )
-    Sys.sleep(0.05)
+    line <- paste0("[", format(Sys.time(), "%H:%M:%S"), "] ", msg, "\n")
+    shinyjs::html(id = "processing_log", html = line, add = TRUE)
   }
 
   # Observe file upload and trigger processing
