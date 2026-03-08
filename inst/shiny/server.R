@@ -53,8 +53,8 @@ server <- function(input, output, session) {
       log_msg("Creating summary by result_type.")
       rt <- omopgenerics::settings(results) |>
         dplyr::distinct(.data$package_name, .data$result_type, .data$package_version) |>
-        dplyr::left_join(pkgsInfo, by = "package_name") |>
-        dplyr::left_join(resultTypeInfo, by = "result_type")
+        dplyr::left_join(OmopCheckout:::pkgsInfo, by = "package_name") |>
+        dplyr::left_join(OmopCheckout:::resultTypeInfo, by = "result_type")
       rt <- rt$result_type |>
         unique() |>
         rlang::set_names() |>
