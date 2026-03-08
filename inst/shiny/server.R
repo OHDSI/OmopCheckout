@@ -119,4 +119,10 @@ server <- function(input, output, session) {
     filename = function() paste0("checkout_summary_", Sys.Date(), ".md"),
     content = function(file) writeLines(checkout_md(), con = file)
   )
+
+  output$checkout_summary_html <- shiny::renderUI({
+    md <- paste(checkout_md(), collapse = "\n\n")
+    html <- markdown::markdownToHTML(text = md, fragment.only = TRUE)
+    shiny::HTML(html)
+  })
 }
