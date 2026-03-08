@@ -25,3 +25,5 @@ Imports:
     omopgenerics,
     rlang,
     dplyr
+Depends: 
+    R (>= 3.5)

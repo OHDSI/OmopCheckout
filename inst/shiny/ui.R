@@ -53,7 +53,7 @@ ui <- bslib::page_navbar(
             shiny::icon("gear"),
             " Processing results \u2014 please wait\u2026"
           ),
-          shiny::verbatimTextOutput("processing_log")
+          shiny::tags$pre(id = "processing_log", style = "height:300px; overflow-y:auto; background:#1e1e1e; color:#d4d4d4; padding:10px; border-radius:4px; font-size:0.85em;")
         )
       )
     ),
@@ -87,21 +87,17 @@ ui <- bslib::page_navbar(
           bslib::nav_panel(
             title = "Results explorer",
 
-            bslib::card(
-              bslib::card_header("Result type to explore"),
-
-              # to select the result_type to explore
-              shinyWidgets::pickerInput(
-                label = "Result type to explore",
-                inputId = "result_type",
-                choices = NULL,
-                selected = NULL,
-                multiple = FALSE
-              ),
-
-              # summary of result_type generation
-              shiny::textOutput("result_type_generation")
+            # to select the result_type to explore
+            shinyWidgets::pickerInput(
+              label = "Result type to explore",
+              inputId = "result_type",
+              choices = NULL,
+              selected = NULL,
+              multiple = FALSE
             ),
+
+            # summary of result_type generation
+            shiny::textOutput("result_type_generation"),
 
             # card to explore
             bslib::card(
