@@ -47,7 +47,7 @@ jobs:
             renv::init()
             install.packages("pak")
             pak::pkg_install("ohdsi/OmopCheckout")
-            renv::record("github::ohdsi/OmopCheckout")
+            renv::snapshot()
           '
         working-directory: extras/shiny/
 
