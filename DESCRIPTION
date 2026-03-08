@@ -18,6 +18,7 @@ Suggests:
     reactable,
     readr,
     renv,
+    rsconnect,
     rstudioapi,
     shiny,
     shinycssloaders,
