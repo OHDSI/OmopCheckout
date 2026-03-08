@@ -12,11 +12,15 @@ LazyData: true
 RoxygenNote: 7.3.3
 Suggests: 
     bslib,
+    cpp11,
     markdown,
     OmopViewer,
     purrr,
+    progress,
     reactable,
     readr,
+    renv,
+    rsconnect,
     rstudioapi,
     shiny,
     shinycssloaders,

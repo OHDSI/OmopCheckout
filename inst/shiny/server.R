@@ -66,7 +66,7 @@ server <- function(input, output, session) {
             dplyr::select(!"package_version") |>
             dplyr::distinct()
           if (nrow(x) > 1) {
-            browser()
+            cli::cli_abort(c(x = "Problem with package_names"))
           }
           if (!is.na(x$package_name)) {
             pkg <- paste0("[", x$package_name, "](", x$package_website, ")")
