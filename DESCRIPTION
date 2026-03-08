@@ -17,6 +17,7 @@ Suggests:
     purrr,
     reactable,
     readr,
+    renv,
     rstudioapi,
     shiny,
     shinycssloaders,
