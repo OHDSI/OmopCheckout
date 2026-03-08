@@ -74,7 +74,7 @@ server <- function(input, output, session) {
             pkg <- "Unknown"
           }
           if (!is.na(x$function_name)) {
-            moreInfo <- paste0(" See <", x$package_website, "/reference/", x$function_name, ".html>.")
+            moreInfo <- paste0(" See <", x$package_website, "reference/", x$function_name, ".html>.")
           } else {
             moreInfo <- ""
           }
@@ -102,8 +102,10 @@ server <- function(input, output, session) {
   })
 
   # result explorer ----
-  output$result_type_generation <- shiny::renderText({
-    summary_results()[[input$result_type]]
+  output$result_type_generation <- shiny::renderUI({
+    summary_results()[[input$result_type]] |>
+      markdown::markdownToHTML(fragment.only = TRUE) |>
+      shiny::HTML()
   })
 
   output$results_contents <- reactable::renderReactable({

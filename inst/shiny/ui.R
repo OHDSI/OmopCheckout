@@ -99,7 +99,7 @@ ui <- bslib::page_navbar(
               ),
 
               # summary of result_type generation
-              shiny::textOutput("result_type_generation"),
+              shiny::uiOutput("result_type_generation"),
 
               # to explore
               reactable::reactableOutput("results_contents") |>
