@@ -72,7 +72,7 @@ ui <- bslib::page_navbar(
             title = "Checkout Summary",
 
             shiny::uiOutput("checkout_summary_html") |>
-              shinycssloaders::withSpinner(type = 1, color = "#0d6efd"),
+              shinycssloaders::withSpinner(type = 6),
 
             # Raw markdown collapsible + download
             tags$details(
@@ -103,7 +103,7 @@ ui <- bslib::page_navbar(
 
               # to explore
               reactable::reactableOutput("results_contents") |>
-                shinycssloaders::withSpinner()
+                shinycssloaders::withSpinner(type = 6)
             )
           )
 

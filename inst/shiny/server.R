@@ -4,6 +4,7 @@ server <- function(input, output, session) {
   # result processing ----
   explore_results <- shiny::reactiveVal(list())
   summary_results <- shiny::reactiveVal(list())
+  checkout_md <- shiny::reactiveVal()
 
   # Helper: append a line directly to the UI output, bypassing reactive batching
   log_msg <- function(msg) {
@@ -84,6 +85,9 @@ server <- function(input, output, session) {
         })
       summary_results(rt)
 
+      log_msg("Creating create checkout report.")
+      checkout_md(capture.output(OmopCheckout::checkoutSummary(results)))
+
       log_msg("Processing complete.")
 
       # Hide processing panel and reveal summary panel
@@ -106,4 +110,13 @@ server <- function(input, output, session) {
     reactable::reactable(explore_results()[[input$result_type]])
   })
 
+  # check out summary ----
+  output$checkout_summary_md <- renderText({
+    paste(checkout_md(), collapse = "\n")
+  })
+
+  output$download_checkout_md <- downloadHandler(
+    filename = function() paste0("checkout_summary_", Sys.Date(), ".md"),
+    content = function(file) writeLines(checkout_md(), con = file)
+  )
 }
