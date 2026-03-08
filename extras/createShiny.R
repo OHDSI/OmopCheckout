@@ -21,5 +21,3 @@ backgoundFile <- c(
   '```'
 ) |>
   writeLines(bp)
-
-usethis::create_project(path = shinyDirectory)
