@@ -3,7 +3,7 @@ shinyDirectory <- file.path(getwd(), "extras", "shiny")
 unlink(shinyDirectory, recursive = TRUE)
 dir.create(path = shinyDirectory)
 file.copy(
-  from = system.file("shiny", package = "OmopCheckout"),
+  from = file.path(getwd(), "inst", "shiny"),
   to = file.path(getwd(), "extras"),
   recursive = TRUE
 )
