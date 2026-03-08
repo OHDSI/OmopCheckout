@@ -13,6 +13,7 @@ RoxygenNote: 7.3.3
 Suggests: 
     bslib,
     markdown,
+    OmopViewer,
     purrr,
     reactable,
     readr,
