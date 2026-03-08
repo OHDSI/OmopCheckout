@@ -14,6 +14,9 @@ ui <- bslib::page_navbar(
 
   theme = bslib::bs_theme(bootswatch = "flatly"),
 
+  # required for shinyjs show/hide
+  header = shinyjs::useShinyjs(),
+
   bslib::nav_panel(
     title = "Background",
     icon = shiny::icon("book-atlas"),
@@ -25,21 +28,37 @@ ui <- bslib::page_navbar(
     icon = shiny::icon("magnifying-glass-chart"),
 
     # panel to upload results
-    bslib::card(
-      shiny::fileInput(
-        "file_results",
-        "Upload Summarised Results",
-        accept = c(".csv")
+    bslib::accordion(
+      id = "upload_accordion",
+      open = TRUE,
+      bslib::accordion_panel(
+        title = "Upload Summarised Results",
+        icon = shiny::icon("file-arrow-up"),
+        shiny::fileInput(
+          "file_results",
+          label = NULL,
+          accept = c(".csv")
+        )
       )
     ),
 
-    bslib::card(
-      id = "results_processing",
+    # processing log — visible while results are being processed
+    shinyjs::hidden(
+      div(
+        id = "results_processing_wrapper",
 
-      "processing results"
+        bslib::card(
+          id = "results_processing",
+          bslib::card_header(
+            shiny::icon("gear"),
+            " Processing results \u2014 please wait\u2026"
+          ),
+          shiny::verbatimTextOutput("processing_log")
+        )
+      )
     ),
 
-    # so it can be hidden and shown
+    # summary panel — hidden until processing is complete
     shinyjs::hidden(
       div(
         id = "results_summary_wrapper",
@@ -84,7 +103,7 @@ ui <- bslib::page_navbar(
               shiny::textOutput("result_type_generation")
             ),
 
-            # crad to explore
+            # card to explore
             bslib::card(
               reactable::reactableOutput("results_contents") |>
                 shinycssloaders::withSpinner()
@@ -97,17 +116,6 @@ ui <- bslib::page_navbar(
   ),
 
   bslib::nav_spacer(),
-
-  # bslib::nav_item(
-  #   bslib::popover(
-  #     shiny::icon("download"),
-  #     shiny::downloadButton(
-  #       outputId = "download_raw",
-  #       label = "Download raw data",
-  #       icon = shiny::icon("download")
-  #     )
-  #   )
-  # ),
 
   bslib::nav_item(bslib::input_dark_mode(id = "dark_mode", mode = "light"))
 )

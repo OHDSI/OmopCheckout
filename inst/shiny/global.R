@@ -1,5 +1,6 @@
 
 library(shiny)
+library(shinyjs)
 library(omopgenerics)
 library(reactable)
 library(dplyr)
