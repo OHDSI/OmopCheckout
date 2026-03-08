@@ -2,4 +2,4 @@
 # IT IS USED IN THE GITHUB ACTION
 
 appName <- "OmopCheckout"
-source(here::here("extras", "deployShiny.R"))
+source(file.path(getwd(), "extras", "deployShiny.R"))
