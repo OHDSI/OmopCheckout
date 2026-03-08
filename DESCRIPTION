@@ -26,6 +26,7 @@ Suggests:
 URL: https://OHDSI.github.io/OmopCheckout/
 BugReports: https://github.com/OHDSI/OmopCheckout/issues
 Imports: 
+    cli,
     commonmark,
     dplyr,
     omopgenerics,
