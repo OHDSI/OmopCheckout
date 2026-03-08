@@ -182,6 +182,7 @@ packagesCheck <- function(result) {
       \(x) {
         x[is.na(x)] <- "unknown"
         x[x == "-"] <- "unknown"
+        x[trimws(x) == ""] <- "unknown"
         x
       }
     )) |>

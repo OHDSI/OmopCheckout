@@ -45,13 +45,7 @@ jobs:
         run: Rscript -e 'pak::pkg_install("ohdsi/OmopCheckout")'
 
       - name: Create renv file
-        run: |
-          Rscript -e '
-            renv::init()
-            install.packages("pak")
-            pak::pkg_install("ohdsi/OmopCheckout")
-            renv::snapshot()
-          '
+        run: Rscript -e 'renv::init()'
         working-directory: extras/shiny/
 
       - name: Deploy TEST to shinyapps.io
