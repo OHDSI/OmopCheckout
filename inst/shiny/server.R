@@ -109,7 +109,7 @@ server <- function(input, output, session) {
   })
 
   output$results_contents <- reactable::renderReactable({
-    reactable::reactable(explore_results()[[input$result_type]])
+    reactable::reactable(explore_results()[[input$result_type]], filterable = TRUE)
   })
 
   # check out summary ----
