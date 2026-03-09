@@ -39,6 +39,7 @@ server <- function(input, output, session) {
         purrr::map(\(resType) {
           results |>
             omopgenerics::filterSettings(.data$result_type == .env$resType) |>
+            dplyr::mutate(estimate_name = paste0(.data$estimate_name, "_", .data$estimate_type)) |>
             omopgenerics::tidy()
         })
       explore_results(rt)
