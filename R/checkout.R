@@ -155,7 +155,7 @@ suppressCheck <- function(result) {
       minCellCount <- unique(x$min_cell_count)
       if (minCellCount == 0) {
         msg <- paste0(
-          "- Unsuppresed results for result IDs: ",
+          "- **Unsuppresed** results for result IDs: ",
           collapseIds(x$result_id),
           " (",
           nicenum(n),
@@ -279,7 +279,7 @@ writeReport <- function(x, output) {
   return(x)
 }
 nicenum <- function(x) {
-  format(x, big.mark = ",")
+  format(x, big.mark = ",", scientific = FALSE)
 }
 percentage <- function(x) {
   purrr::map_chr(x, \(x) {
