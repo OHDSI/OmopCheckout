@@ -20,22 +20,88 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/OHDSI/OmopCheckout/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/OHDSI/OmopCheckout/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of **OmopCheckout** is to ... *clearly state the main goal of the package*
+The goal of **OmopCheckout** is to validate and explore `summarised_result` objects produced when working with the Observational Medical Outcomes Partnership (OMOP) Common Data Model. It helps ensure that results are correctly formatted and adequately suppressed before sharing. It also helps to explore what is the content of a `summarised_result` object.
 
 ## Installation
 
-You can install the development version of OmopCheckout from [GitHub](https://github.com/) with:
+**OmopCheckout** can be installed from cran with:
+
+```{r, eval=FALSE}
+install.packages("OmopCheckout")
+```
+
+or you can install the development GitHub with:
 
 ```{r, eval=FALSE}
 # install.packages("pak")
 pak::pkg_install("OHDSI/OmopCheckout")
 ```
 
-## Example
+## What is a summarised_result?
+
+A `summarised_result` is a standardised output format used across the OHDSI R package ecosystem (e.g. [CohortCharacteristics](https://ohdsi.github.io/CohortCharacteristics/), [IncidencePrevalence](https://ohdsi.github.io/IncidencePrevalence/), [DrugUtilisation](https://ohdsi.github.io/DrugUtilisation/)). To learn more, see the [omopgenerics documentation](https://darwin-eu.github.io/omopgenerics/articles/summarised_result.html).
+
+## Usage
 
 ```{r}
 library(OmopCheckout)
 library(OmopViewer)
+```
 
+### Full audit with `checkout()`
+
+`checkout()` runs a complete audit of a `summarised_result` object covering suppression status, package metadata, and estimate types.
+
+```{r}
 checkout(omopViewerResults)
+```
+
+### Check suppression with `summarySuppress()`
+
+`summarySuppress()` reports the suppression status for each `result_id` — which results have been suppressed, with what minimum cell count, and how many rows are affected.
+
+```{r}
+summarySuppress(omopViewerResults)
+```
+
+### Summarise packages with `summaryPackages()`
+
+`summaryPackages()` reports which package name and version produced each result, broken down by result type.
+
+```{r}
+summaryPackages(omopViewerResults)
+```
+
+### Summarise estimates with `summaryEstimates()`
+
+`summaryEstimates()` lists the estimate types (e.g. `count`, `mean`, `sd`) present in each result type, along with their row counts.
+
+```{r}
+summaryEstimates(omopViewerResults)
+```
+
+### Output options
+
+All functions support the same `output` argument:
+
+```{r, eval=FALSE}
+# Print to console (default)
+checkout(omopViewerResults, output = "console")
+
+# Return as a character string
+report <- checkout(omopViewerResults, output = "text")
+
+# Open as HTML in the RStudio viewer
+checkout(omopViewerResults, output = "show")
+
+# Save to a Markdown file
+checkout(omopViewerResults, output = "my_report.md")
+```
+
+### Interactive Shiny app
+
+For a point-and-click interface, launch the built-in Shiny app with `checkoutShiny()`. It allows you to upload a `summarised_result` `.csv` file and interactively explore and validate its contents.
+
+```{r, eval=FALSE}
+checkoutShiny()
 ```
