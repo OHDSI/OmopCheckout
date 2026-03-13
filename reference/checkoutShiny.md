@@ -3,7 +3,7 @@
 Opens an interactive Shiny application for uploading, exploring, and
 validating \`summarised_result\` objects. The app provides the same
 checks as \[checkout()\] in a point-and-click interface, without needing
-to write R code.
+to write R code. Also you can explore the results in the explore Tab.
 
 ## Usage
 
