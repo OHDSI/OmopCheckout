@@ -1,6 +1,9 @@
 # Check a summarised_result object
 
-Check a summarised_result object
+Runs a full audit of a \`summarised_result\` object, covering
+suppression status, package metadata, and estimate types. The report can
+be printed to the console, returned as text, shown in the RStudio
+viewer, or saved to a Markdown file.
 
 ## Usage
 
@@ -16,17 +19,19 @@ checkout(result, output = "console")
 
 - output:
 
-  Character vector, it can be:
+  A single character string specifying where to send the output. It can
+  be:
 
   - `"console"` to print the summary in the console.
 
-  - `"text"` to return a character vector.
+  - `"text"` to return the summary as a character string.
 
-  - `"show"` to show the result in the viewer (html format).
+  - `"show"` to display the result in the viewer (HTML format).
 
   - Otherwise `output` will be used as the name of an `'.md'` file to
-    write the report in.
+    write the report to.
 
 ## Value
 
-Whether the result object passes the checks or not.
+A character string containing the summary of all checks, returned
+invisibly unless `output = "text"`.

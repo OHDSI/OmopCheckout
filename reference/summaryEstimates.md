@@ -1,6 +1,8 @@
-# Summarise results by estimate/strata
+# Summarise estimate types by result type in a summarised_result object
 
-Summarise results by estimate/strata
+For each unique \`result_type\` in the result settings, reports which
+estimate names are present along with their row counts and percentage of
+the total.
 
 ## Usage
 
@@ -16,17 +18,19 @@ summaryEstimates(result, output = "console")
 
 - output:
 
-  Character vector, it can be:
+  A single character string specifying where to send the output. It can
+  be:
 
   - `"console"` to print the summary in the console.
 
-  - `"text"` to return a character vector.
+  - `"text"` to return the summary as a character string.
 
-  - `"show"` to show the result in the viewer (html format).
+  - `"show"` to display the result in the viewer (HTML format).
 
   - Otherwise `output` will be used as the name of an `'.md'` file to
-    write the report in.
+    write the report to.
 
 ## Value
 
-A character vector describing estimate/strata groupings and result ids.
+A character string containing the estimates summary, returned invisibly
+unless `output = "text"`.

@@ -7,8 +7,9 @@
 - [`checkoutShiny()`](https://OHDSI.github.io/OmopCheckout/reference/checkoutShiny.md)
   : Launch the OmopCheckout Shiny application
 - [`summaryEstimates()`](https://OHDSI.github.io/OmopCheckout/reference/summaryEstimates.md)
-  : Summarise results by estimate/strata
+  : Summarise estimate types by result type in a summarised_result
+  object
 - [`summaryPackages()`](https://OHDSI.github.io/OmopCheckout/reference/summaryPackages.md)
-  : Summarise package usage in the result
+  : Summarise package usage in a summarised_result object
 - [`summarySuppress()`](https://OHDSI.github.io/OmopCheckout/reference/summarySuppress.md)
   : Check suppression correctness for each result_id

@@ -1,8 +1,9 @@
 # Check suppression correctness for each result_id
 
 For each unique \`result_id\` in \`result\`, checks whether suppression
-is applied and produces messages describing whether suppression is
-correct.
+has been applied and reports the minimum cell count used, the number of
+rows affected, and the percentage of total results that are suppressed
+or unsuppressed.
 
 ## Usage
 
@@ -18,17 +19,19 @@ summarySuppress(result, output = "console")
 
 - output:
 
-  Character vector, it can be:
+  A single character string specifying where to send the output. It can
+  be:
 
   - `"console"` to print the summary in the console.
 
-  - `"text"` to return a character vector.
+  - `"text"` to return the summary as a character string.
 
-  - `"show"` to show the result in the viewer (html format).
+  - `"show"` to display the result in the viewer (HTML format).
 
   - Otherwise `output` will be used as the name of an `'.md'` file to
-    write the report in.
+    write the report to.
 
 ## Value
 
-A character vector of messages (one per checked result id).
+A character string containing the suppression summary, returned
+invisibly unless `output = "text"`.
