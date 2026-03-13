@@ -2,26 +2,28 @@
 % Please edit documentation in R/checkout.R
 \name{summaryPackages}
 \alias{summaryPackages}
-\title{Summarise package usage in the result}
+\title{Summarise package usage in a summarised_result object}
 \usage{
 summaryPackages(result, output = "console")
 }
 \arguments{
 \item{result}{A `summarised_result` object.}
 
-\item{output}{Character vector, it can be:
+\item{output}{A single character string specifying where to send the output.
+  It can be:
 \itemize{
   \item \code{"console"} to print the summary in the console.
-  \item \code{"text"} to return a character vector.
-  \item \code{"show"} to show the result in the viewer (html format).
+  \item \code{"text"} to return the summary as a character string.
+  \item \code{"show"} to display the result in the viewer (HTML format).
   \item Otherwise \code{output} will be used as the name of an \code{'.md'}
-    file to write the report in.
+    file to write the report to.
 }}
 }
 \value{
-A character vector of package summary strings.
+A character string containing the package summary, returned
+  invisibly unless \code{output = "text"}.
 }
 \description{
-Produces one-line summaries per package/version indicating number of rows and
-which result_ids each package/version covers.
+For each package name and version found in the result settings, reports the
+number of rows and result IDs associated with it, broken down by result type.
 }

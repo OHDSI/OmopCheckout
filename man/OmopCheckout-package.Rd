@@ -4,17 +4,26 @@
 \name{OmopCheckout-package}
 \alias{OmopCheckout}
 \alias{OmopCheckout-package}
-\title{OmopCheckout: What the Package Does (Title Case)}
+\title{OmopCheckout: Check and Explore Summarised Results from the OMOP Common Data Model}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+Provides tools to validate and explore 'summarised_result' objects produced when working with the Observational Medical Outcomes Partnership (OMOP) Common Data Model. Checks that results are correctly formatted and adequately suppressed, and provides utilities to explore and understand their content.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://OHDSI.github.io/OmopCheckout/}
   \item Report bugs at \url{https://github.com/OHDSI/OmopCheckout/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Cecilia Campanile \email{cecilia.campanile@ndorms.ox.ac.uk} (\href{https://orcid.org/0009-0007-6629-4661}{ORCID})
+
+Authors:
+\itemize{
+  \item Martí Català \email{marti.catalasabate@ndorms.ox.ac.uk} (\href{https://orcid.org/0000-0003-3308-9905}{ORCID})
 }
 
 }

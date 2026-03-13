@@ -1,6 +1,14 @@
 
 #' Launch the OmopCheckout Shiny application
 #'
+#' @description
+#' Opens an interactive Shiny application for uploading, exploring, and
+#' validating `summarised_result` objects. The app provides the same checks
+#' as [checkout()] in a point-and-click interface, without needing to write
+#' R code.
+#'
+#' @return Called for its side effect of launching the Shiny app. Returns
+#'   \code{NULL} invisibly.
 #' @export
 checkoutShiny <- function() {
 

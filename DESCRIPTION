@@ -1,11 +1,22 @@
 Package: OmopCheckout
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Check and Explore Summarised Results from the OMOP Common Data Model
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: c(
+    person(
+        "Cecilia", "Campanile", email = "cecilia.campanile@ndorms.ox.ac.uk", 
+        role = c("aut", "cre"), comment = c(ORCID = "0009-0007-6629-4661")
+    ),
+    person(
+        "Martí", "Català", email = "marti.catalasabate@ndorms.ox.ac.uk", 
+        role = c("aut"), comment = c(ORCID = "0000-0003-3308-9905")
+    ))
+Maintainer: Cecilia Campanile <cecilia.campanile@ndorms.ox.ac.uk>
+Description: Provides tools to validate and explore 'summarised_result' objects
+    produced when working with the Observational Medical Outcomes Partnership
+    (OMOP) Common Data Model. Checks that results are correctly formatted and 
+    adequately suppressed, and provides utilities to explore and understand 
+    their content.
 License: Apache License (>= 2)
 Encoding: UTF-8
 LazyData: true

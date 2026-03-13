@@ -9,19 +9,22 @@ summarySuppress(result, output = "console")
 \arguments{
 \item{result}{A `summarised_result` object.}
 
-\item{output}{Character vector, it can be:
+\item{output}{A single character string specifying where to send the output.
+  It can be:
 \itemize{
   \item \code{"console"} to print the summary in the console.
-  \item \code{"text"} to return a character vector.
-  \item \code{"show"} to show the result in the viewer (html format).
+  \item \code{"text"} to return the summary as a character string.
+  \item \code{"show"} to display the result in the viewer (HTML format).
   \item Otherwise \code{output} will be used as the name of an \code{'.md'}
-    file to write the report in.
+    file to write the report to.
 }}
 }
 \value{
-A character vector of messages (one per checked result id).
+A character string containing the suppression summary, returned
+  invisibly unless \code{output = "text"}.
 }
 \description{
-For each unique `result_id` in `result`, checks whether suppression is applied
-and produces messages describing whether suppression is correct.
+For each unique `result_id` in `result`, checks whether suppression has been
+applied and reports the minimum cell count used, the number of rows affected,
+and the percentage of total results that are suppressed or unsuppressed.
 }

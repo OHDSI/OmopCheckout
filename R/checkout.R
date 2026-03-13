@@ -1,18 +1,25 @@
 
 #' Check a summarised_result object
 #'
+#' @description
+#' Runs a full audit of a `summarised_result` object, covering suppression
+#' status, package metadata, and estimate types. The report can be printed
+#' to the console, returned as text, shown in the RStudio viewer, or saved
+#' to a Markdown file.
+#'
 #' @param result A `summarised_result` object.
-#' @param output Character vector it can be:
-#' @param output Character vector, it can be:
+#' @param output A single character string specifying where to send the output.
+#'   It can be:
 #' \itemize{
 #'   \item \code{"console"} to print the summary in the console.
-#'   \item \code{"text"} to return a character vector.
-#'   \item \code{"show"} to show the result in the viewer (html format).
+#'   \item \code{"text"} to return the summary as a character string.
+#'   \item \code{"show"} to display the result in the viewer (HTML format).
 #'   \item Otherwise \code{output} will be used as the name of an \code{'.md'}
-#'     file to write the report in.
+#'     file to write the report to.
 #' }
 #'
-#' @return Whether the result object passes the checks or not.
+#' @return A character string containing the summary of all checks, returned
+#'   invisibly unless \code{output = "text"}.
 #' @export
 #'
 checkout <- function(result, output = "console") {
@@ -41,12 +48,14 @@ checkout <- function(result, output = "console") {
 }
 #' Check suppression correctness for each result_id
 #'
-#' For each unique `result_id` in `result`, checks whether suppression is applied
-#' and produces messages describing whether suppression is correct.
+#' For each unique `result_id` in `result`, checks whether suppression has been
+#' applied and reports the minimum cell count used, the number of rows affected,
+#' and the percentage of total results that are suppressed or unsuppressed.
 #'
 #' @inheritParams checkout
 #'
-#' @return A character vector of messages (one per checked result id).
+#' @return A character string containing the suppression summary, returned
+#'   invisibly unless \code{output = "text"}.
 #' @export
 summarySuppress <- function(result, output = "console") {
   # initial check
@@ -63,14 +72,15 @@ summarySuppress <- function(result, output = "console") {
   }
 }
 
-#' Summarise package usage in the result
+#' Summarise package usage in a summarised_result object
 #'
-#' Produces one-line summaries per package/version indicating number of rows and
-#' which result_ids each package/version covers.
+#' For each package name and version found in the result settings, reports the
+#' number of rows and result IDs associated with it, broken down by result type.
 #'
 #' @inheritParams checkout
 #'
-#' @return A character vector of package summary strings.
+#' @return A character string containing the package summary, returned
+#'   invisibly unless \code{output = "text"}.
 #' @export
 summaryPackages <- function(result, output = "console") {
   # initial check
@@ -87,11 +97,15 @@ summaryPackages <- function(result, output = "console") {
   }
 }
 
-#' Summarise results by estimate/strata
+#' Summarise estimate types by result type in a summarised_result object
+#'
+#' For each unique `result_type` in the result settings, reports which estimate
+#' names are present along with their row counts and percentage of the total.
 #'
 #' @inheritParams checkout
 #'
-#' @return A character vector describing estimate/strata groupings and result ids.
+#' @return A character string containing the estimates summary, returned
+#'   invisibly unless \code{output = "text"}.
 #' @export
 summaryEstimates <- function(result, output = "console") {
   # initial check
@@ -145,7 +159,7 @@ suppressCheck <- function(result) {
           collapseIds(x$result_id),
           " (",
           nicenum(n),
-          "rows; ",
+          " rows; ",
           percentage(n/sum(counts$n)),
           ")"
         )
@@ -259,7 +273,7 @@ writeReport <- function(x, output) {
   } else if (output == "show") {
     showReport(x)
   } else if (output != "text") {
-    cli::cli_inform(c("i" = "Writting {.cls checkout_summary} in {.path {output}}"))
+    cli::cli_inform(c("i" = "Writing {.cls checkout_summary} to {.path {output}}"))
     writeLines(text = x, con = output)
   }
   return(x)

@@ -2,25 +2,28 @@
 % Please edit documentation in R/checkout.R
 \name{summaryEstimates}
 \alias{summaryEstimates}
-\title{Summarise results by estimate/strata}
+\title{Summarise estimate types by result type in a summarised_result object}
 \usage{
 summaryEstimates(result, output = "console")
 }
 \arguments{
 \item{result}{A `summarised_result` object.}
 
-\item{output}{Character vector, it can be:
+\item{output}{A single character string specifying where to send the output.
+  It can be:
 \itemize{
   \item \code{"console"} to print the summary in the console.
-  \item \code{"text"} to return a character vector.
-  \item \code{"show"} to show the result in the viewer (html format).
+  \item \code{"text"} to return the summary as a character string.
+  \item \code{"show"} to display the result in the viewer (HTML format).
   \item Otherwise \code{output} will be used as the name of an \code{'.md'}
-    file to write the report in.
+    file to write the report to.
 }}
 }
 \value{
-A character vector describing estimate/strata groupings and result ids.
+A character string containing the estimates summary, returned
+  invisibly unless \code{output = "text"}.
 }
 \description{
-Summarise results by estimate/strata
+For each unique `result_type` in the result settings, reports which estimate
+names are present along with their row counts and percentage of the total.
 }

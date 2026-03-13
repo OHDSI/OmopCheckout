@@ -9,18 +9,23 @@ checkout(result, output = "console")
 \arguments{
 \item{result}{A `summarised_result` object.}
 
-\item{output}{Character vector, it can be:
+\item{output}{A single character string specifying where to send the output.
+  It can be:
 \itemize{
   \item \code{"console"} to print the summary in the console.
-  \item \code{"text"} to return a character vector.
-  \item \code{"show"} to show the result in the viewer (html format).
+  \item \code{"text"} to return the summary as a character string.
+  \item \code{"show"} to display the result in the viewer (HTML format).
   \item Otherwise \code{output} will be used as the name of an \code{'.md'}
-    file to write the report in.
+    file to write the report to.
 }}
 }
 \value{
-Whether the result object passes the checks or not.
+A character string containing the summary of all checks, returned
+  invisibly unless \code{output = "text"}.
 }
 \description{
-Check a summarised_result object
+Runs a full audit of a `summarised_result` object, covering suppression
+status, package metadata, and estimate types. The report can be printed
+to the console, returned as text, shown in the RStudio viewer, or saved
+to a Markdown file.
 }
