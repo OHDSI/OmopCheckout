@@ -23,7 +23,7 @@ newResult <- function(resultType = "my_result",
     }) |>
     dplyr::bind_rows() |>
     omopgenerics::newSummarisedResult(
-      settings = tibble::tibble(
+      settings = dplyr::tibble(
         result_id = seq_along(resultType),
         result_type = resultType,
         package_name = packageName,
