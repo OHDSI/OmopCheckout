@@ -12,12 +12,14 @@ sharing. It also helps to explore what is the content of a
 **OmopCheckout** can be installed from cran with:
 
 ``` r
+
 install.packages("OmopCheckout")
 ```
 
 or you can install the development GitHub with:
 
 ``` r
+
 # install.packages("pak")
 pak::pkg_install("OHDSI/OmopCheckout")
 ```
@@ -35,6 +37,7 @@ documentation](https://darwin-eu.github.io/omopgenerics/articles/summarised_resu
 ## Usage
 
 ``` r
+
 library(OmopCheckout)
 library(OmopViewer)
 ```
@@ -46,6 +49,7 @@ runs a complete audit of a `summarised_result` object covering
 suppression status, package metadata, and estimate types.
 
 ``` r
+
 checkout(omopViewerResults)
 #> ## <summarised_result>
 #> 
@@ -410,6 +414,7 @@ been suppressed, with what minimum cell count, and how many rows are
 affected.
 
 ``` r
+
 summarySuppress(omopViewerResults)
 #> - Results suppressed with **minCellCount = 5** for result IDs: 1–122 (55,103 rows; 100.0%)
 ```
@@ -421,6 +426,7 @@ reports which package name and version produced each result, broken down
 by result type.
 
 ``` r
+
 summaryPackages(omopViewerResults)
 #> **CodelistGenerator (3.5.0)** for result IDs: 6–10 (183 rows ; 0.3%):
 #> 
@@ -488,6 +494,7 @@ lists the estimate types (e.g. `count`, `mean`, `sd`) present in each
 result type, along with their row counts.
 
 ``` r
+
 summaryEstimates(omopViewerResults)
 #> **achilles_code_use** for result IDs: 9 (12 rows ; <0.1%):
 #> 
@@ -780,6 +787,7 @@ summaryEstimates(omopViewerResults)
 All functions support the same `output` argument:
 
 ``` r
+
 # Print to console (default)
 checkout(omopViewerResults, output = "console")
 
@@ -801,5 +809,6 @@ It allows you to upload a `summarised_result` `.csv` file and
 interactively explore and validate its contents.
 
 ``` r
+
 checkoutShiny()
 ```
