@@ -110,7 +110,11 @@ server <- function(input, output, session) {
   })
 
   output$results_contents <- reactable::renderReactable({
-    reactable::reactable(explore_results()[[input$result_type]], filterable = TRUE)
+    reactable::reactable(
+      data = explore_results()[[input$result_type]],
+      filterable = TRUE,
+      defaultColDef = reactable::colDef(sortNALast = TRUE)
+    )
   })
 
   # check out summary ----
